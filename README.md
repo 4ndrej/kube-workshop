@@ -13,7 +13,7 @@ Setup and teardown scripts has been placed into ```cluster/kube-up.sh``` and ```
 
 To start kubernetes just run following command:
 ```
-$ git  clone https://github.com/akranga/kube-workshop.git kube-workshop
+$ git clone https://github.com/akranga/kube-workshop.git kube-workshop
 $ cd kube-workshop
 $ bash cluster/kube-up.sh
 $ kubectl config set-cluster http://localhost:8080
@@ -153,7 +153,7 @@ chuck-bbbj5            1/1       Running   0          3m
 
 Next step is to expose our Chuck norris to the world
 ```
-$ kubectl expose rc chuck --container-port=8080 --port=8000
+$ kubectl expose rc chuck --container-port=8000 --port=8080
 
 NAME      LABELS      SELECTOR    IP(S)     PORT(S)
 chuck     run=chuck   run=chuck             8000/TCP
@@ -173,7 +173,7 @@ $ curl 172.17.0.14:8080
 Chuck Norris can solve the Towers of Hanoi in one move.
 ```
 
-Next step is to scale our application to 5 replicas
+Next step is to scale our application to 3 replicas
 ```
 $ kubectl scale --current-replicas=1 --replicas=3 rc chuck
 
@@ -202,7 +202,7 @@ $ kubectl delete service chuck
 services/chuck
 ```
 
-# Activity 2: Kubernetes manipulations via manifests
+# Activity 3: Kubernetes manipulations via manifests
 
 Commands are good, however we can operate with kubernetes via files. This will give us possiblity to store our configuration in the SCM and make it part of our applicaiton. So it could evolve together.
 
@@ -214,7 +214,7 @@ $ kubectl create -f src/main/infra/chucknorris-rc.yml
 
 replicationcontrollers/chuck
 
-$ kubectl create -f src/main/infra/chucknorris-rc.yml
+$ kubectl create -f src/main/infra/chucknorris-svc.yml
 
 services/chuck
 
@@ -233,7 +233,7 @@ $ curl 172.17.0.18:8080
 "It works on my machine" always holds true for Chuck Norris.
 ```
 
-# Activity 3: Starting Jenkins Master
+# Activity 4: Starting Jenkins Master
 
 Instead of building the applications we will build container with application inside and then schedule it for Kubernetes.
 
@@ -287,7 +287,7 @@ Then you should be able to point with your browser by entering `http://localhost
 
 ![alt text](https://raw.githubusercontent.com/akranga/kube-workshop/master/docs/jenkins-1.png "Jenkins CI Server")
 
-# Activiy 4: Operations with Persistent volumes
+# Activiy 5: Operations with Persistent volumes
 
 Hurray you are doing good so far! However we are not ready yet. Problem is that pods are short-living beasts. When they die all information sotred inside dies with them. So, we will need some persistent volumes for our Jenkins
 
